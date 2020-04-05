@@ -65,7 +65,6 @@ int search(island *beg, int v, int i){
 int main(){
 
     char command;
-    char *menu;
 
     int lst, f, l;
     int t, n;
@@ -73,34 +72,24 @@ int main(){
     island *x;
 
 
-    menu = "-----------------------------------------------------\n"
-           "1)To create the first element of the singly linked list.",
-           "2)Add the element to the end of a singly linked list.",
-           "3)Delete the element from the end of a singly linked list.",
-           "4)To view a singly linked list.",
-           "5)Delete a singly linked list.",
-           "6)Search of the element in the singly linked list.",
-           "7)Exit."
-           "-----------------------------------------------------\n";
-
     while (y){
-        printf("%s", menu);
+        printf("1: To create the first element of the singly linked list\n");
+        printf("2: Add the element to the end of a singly linked list\n");
+        printf("3: Delete the element from the end of a singly linked list\n");
+        printf("4: To view a singly linked list\n");
+        printf("5: Delete a singly linked list\n");
+        printf("6: Search of the element in the singly linked list.\n");
+        printf("7: Exit\n");
         scanf(" %c", &command);
         printf("\n");
 
         if (command == '1'){
             printf(">>> enter the first element of list: ");
             t = scanf("%d", &n);
-            if(t != 1){
-                printf("------| error |------\n");
-                printf("incorrect data have been entered\n");
-                return 1;
-            }
             x = make_first(n);
             lst = l = 1;
             y=1;
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
         if (command == '2'){
@@ -114,8 +103,7 @@ int main(){
             add(x, n);
             y=1;
             printf("---------------------\n");
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
 
@@ -128,16 +116,14 @@ int main(){
 
             }
             printf("---------------------\n");
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
         if (command == '4'){
             show(x);
             y=1;
             printf("---------------------\n");
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
 
@@ -147,8 +133,7 @@ int main(){
             printf(">>> the list has been deleted\n");
 
             printf("---------------------\n");
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
 
@@ -167,8 +152,7 @@ int main(){
                     printf(">>> no such value in the list\n");
                 printf("---------------------\n");
                 y=1;
-            printf("%s", menu);
-            scanf(" %c", &command);
+
         }
 
 
