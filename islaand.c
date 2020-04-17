@@ -93,7 +93,7 @@ int main(){
         }
 
         if (command == '2'){
-            printf(">>> enter the value of an adding element: ");
+            printf(">>> Add the element to the end of a singly linked list ");
             t = scanf("%d", &n);
             if(t != 1){
                 printf("------| error |------\n");
