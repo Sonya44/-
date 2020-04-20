@@ -1,13 +1,13 @@
 from distutils.core import setup, Extension
 
 module1 = Extension(
-	'my_plus', # module name in interpreter
-	sources = ['plus.c']
+	'my_line', # название модуля внутри Python
+	 sources = ['plus.c'] # Исходные файлы модуля
 )
 
 setup(
-	name = 'my_plus',
-	version = '1.1',
-	description = 'Simple module',
-	ext_modules= [module1]
+	name = 'my_line',              # название модуля (my_plus.__name__)
+	version = '1.1',               # версия модуля
+	description = 'Simple module', # описание модуля
+	ext_modules= [module1]         # объекты типа Extension (мы объявили его выше)
 )
