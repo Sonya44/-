@@ -11,29 +11,39 @@ static PyObject *py_distans(PyObject *self, PyObject *args){
   return Py_BuildValue("d", rast);
 }
 
-static PyObject *py_str(PyObject *self, PyObject *args){
-  double a, b, c, yr;
+static PyObject *py_dToZero(PyObject *self, PyObject *args){
+  double a,b,c, rast;
 
-  if(!PyArg_ParseTuple(args,"fff", &a, &b,&c))
+  if(!PyArg_ParseTuple(args,"ddd", &a, &b, &c))
     return NULL;
 
-  if (a < 0){
-    a = "-%.2f"%(abs(a))}
-  else:
-    {a = "%.2f"%(a)}
-  if (b < 0)
-    {b = "- %.2f"%(abs(b))}
-  else:
-    {b = "+ %.2f"%(b)}
-  if (c < 0)
-    {c = "- %.2f"%(abs(c))}
-  else:
-    {c = "+ %.2f"%(c)}
+  rast = fabs(c)/sqrt(pow(a,2)+pow(b,2));
 
-  yr="{}x {}y {} = 0".format(a,b,c);
-
-  return Py_BuildValue("c", yr);
+  return Py_BuildValue("d", rast);
 }
+
+static PyObject *py_dToPoint(PyObject *self, PyObject *args){
+  double a,b,c, x,y, rast;
+
+  if(!PyArg_ParseTuple(args,"ddddd", &a, &b, &c, &x, &y))
+    return NULL;
+
+  rast = fabs(a*x + b*y + c)/sqrt(pow(a,2)+pow(b,2));
+
+  return Py_BuildValue("d", rast);
+}
+
+static PyObject *py_isParallel(PyObject *self, PyObject *args){
+  double a,b,c,a1,b1,c1; int res;
+
+  if(!PyArg_ParseTuple(args,"dddddd", &a, &b, &c, &a1, &b1, &c1 ))
+    return NULL;
+
+  res = fabs(a*b1 - b*a1) <= 0.001;
+
+  return Py_BuildValue("i", res);
+}
+
 
 /* Описывает методы модуля */
 static PyMethodDef ownmod_methods[] = {
@@ -41,13 +51,18 @@ static PyMethodDef ownmod_methods[] = {
     "distans",          // название функции внутри python
      py_distans,        // функция C
      METH_VARARGS,   // макрос, поясняющий, что функция у нас с аргументами
-     "plus function" // документация для функции внутри python
-},{"str",py_str,METH_VARARGS,   // макрос, поясняющий, что функция у нас с аргументами
-"plus function"},
+     "distance between two points" // документация для функции внутри python
+},{"dToZero",py_dToZero,METH_VARARGS,   // макрос, поясняющий, что функция у нас с аргументами
+"distance from (0;0) to line"},
+{"dToPoint",py_dToPoint,METH_VARARGS,   // макрос, поясняющий, что функция у нас с аргументами
+"distance from point to line"},
+{"isParallel",py_isParallel,METH_VARARGS,   // макрос, поясняющий, что функция у нас с аргументами
+"Parallel or no Parallel"},
 { NULL, NULL, 0, NULL }
 // так называемый sentiel. Сколько бы элементов структуры
 // у вас не было, этот нулевой элемент должен быть всегда, и при этом быть последним
 };
+
 
 /* Описываем наш модуль */
 static PyModuleDef simple_module = {
